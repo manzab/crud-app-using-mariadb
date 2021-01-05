@@ -1,0 +1,31 @@
+td,th {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table {
+    width: 90vw;
+    margin: auto;
+    background-color: #f4f1de;
+    border-collapse: collapse;
+}
+th {
+    font-size: 1.5em;
+    background-color: hsl(271, 23%, 52%);
+    border: 1px solid black
+}
+td {
+    font-size: 1.5em;
+    text-align: center;
+    height: 1.5em;
+    width: calc(100% / 3);
+}
+a {
+    text-decoration: none;
+    margin-left: 2vw;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
