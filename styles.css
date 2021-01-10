@@ -45,4 +45,9 @@ img:hover  {
 button {
     display: block;
     margin: auto;
+    margin-top: 5px;
+    padding: 5px;
+    background-color: #457b9d;
+    color: white;
+    font-weight: 600;
 }
