@@ -30,8 +30,8 @@ CREATE TABLE `employees` (
   `project_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_projectId_idx` (`project_id`),
-  CONSTRAINT `fk_projectId` FOREIGN KEY (`project_id`) REFERENCES `employees` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_lt_0900_ai_ci;
+  CONSTRAINT `fk_projectId` FOREIGN KEY (`project_id`) REFERENCES `employees` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_lt_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (1,'Mantas',1),(2,'Jonas',2),(3,'Rimas',3),(4,'Neringa',4),(5,'Danguolė',3),(6,'Ričardas',2),(7,'Antanas',1);
+INSERT INTO `employees` VALUES (1,'Mantas',1),(2,'Jonas',2),(3,'Rimas',3),(4,'Neringa',4),(5,'Danguolė',3),(6,'Ričardas',2),(8,'Petras',5),(9,'Antanas',5);
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,10 +54,7 @@ DROP TABLE IF EXISTS `projects`;
 CREATE TABLE `projects` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(45) COLLATE utf8mb4_lt_0900_ai_ci NOT NULL,
-  `employees_id` int(10) unsigned DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_personId_idx` (`employees_id`),
-  CONSTRAINT `fk_personId` FOREIGN KEY (`employees_id`) REFERENCES `employees` (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_lt_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -67,7 +64,7 @@ CREATE TABLE `projects` (
 
 LOCK TABLES `projects` WRITE;
 /*!40000 ALTER TABLE `projects` DISABLE KEYS */;
-INSERT INTO `projects` VALUES (1,'DB projektavimas',1),(2,'Rinkos tyrimai',4),(3,'Personalo atranka',6),(5,'DB projektavimas',2),(6,'Reklamos kampanija',3),(22,'Rinkos tyrimai',3);
+INSERT INTO `projects` VALUES (1,'DB projektavimas'),(2,'Dzeee'),(3,'Personalo atranka'),(4,'Reklamos kampanija');
 /*!40000 ALTER TABLE `projects` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -80,4 +77,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-01-11  9:52:57
+-- Dump completed on 2021-01-12 17:58:51
