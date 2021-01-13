@@ -56,10 +56,12 @@ if (isset($_GET['path']) and $_GET['path'] == 'projects') {
             print('<tr>' . '<td>' . $num++ . '</td>' . '<td>' . $row['Projects'] . '</td>' . '<td>' . $row['Employees'] . '</td>' . '<td>' . '<a href="?action=deleteProject&id=' . $row['id'] . '"><button>DELETE</button></a>' . '<a href="?path=projects&update=' . $row['id'] . '"><button>UPDATE</button></a>' . '</td>' . '</tr>');
         }
         print('</tbody></table>');
-        print('<form action="" name="create" method="POST">');
-        print('<input type="text" name="new_project">');
-        print('<button id="edit" type="submit">ADD+</button>');
-        print('</form>');
+        if (!isset($_GET['update'])) {
+            print('<form action="" name="create" method="POST">');
+            print('<input type="text" name="new_project">');
+            print('<button id="edit" type="submit">ADD+</button>');
+            print('</form>');
+        }
     } else {
         echo '0 results';
     }
@@ -83,12 +85,13 @@ if (isset($_GET['path']) and $_GET['path'] == 'employees') {
         while ($row = mysqli_fetch_assoc($result)) {
             print('<tr>' . '<td>' . $num++ . '</td>' . '<td>' . $row['Employees'] . '</td>' . '<td>' . $row['Projects'] . '</td>' . '<td>' . '<a href="?action=deleteEmployee&id=' . $row['id'] . '"><button>DELETE</button></a>' . '<a href="?path=employees&update=' . $row['id'] . '"><button>UPDATE</button></a>' . '</td>' . '</tr>');
         }
-        print("</tbody></table>");
         print('</tbody></table>');
-        print('<form action="" name="create" method="POST">');
-        print('<input type="text" name="new_employee">');
-        print('<button id="edit" type="submit">ADD+</button>');
-        print('</form>');
+        if (!isset($_GET['update'])) {
+            print('<form action="" name="create" method="POST">');
+            print('<input type="text" name="new_employee">');
+            print('<button id="edit" type="submit">ADD+</button>');
+            print('</form>');
+        }
     } else {
         echo "0 results";
     }
@@ -128,6 +131,7 @@ if (isset($_GET) and $_GET['update'] != '') {
                 print('<input type="text" class="hidden" name="id" value="' . $row['id'] . '">');
                 print('<input type="text" name="fname" value="' . $row['name'] . '">');
                 print('<select name="project">');
+                print('<option "selected">Choose project:</option>');
                 $sql = "SELECT id, name FROM projects";
                 $result = mysqli_query($conn, $sql);
                 if (mysqli_num_rows($result) > 0) {
