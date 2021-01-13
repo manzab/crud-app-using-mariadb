@@ -1,4 +1,4 @@
-# CRUD-app-using-MariaDB
+# Project-management-app
 
 Application used for getting data (projects, employees) from MySQL MariaDB and manipulating it with create, read, update and delete functionalities.
 
