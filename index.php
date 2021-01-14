@@ -101,7 +101,6 @@ if (isset($_POST['new_employee']) and $_POST['new_employee'] != "") {
     $result = mysqli_query($conn, $sql);
     header("Location: ?path=employees");
 };
-
 // Update form creation
 if (isset($_GET) and $_GET['update'] != '') {
     if ($_GET['path'] == 'projects') {
@@ -144,7 +143,6 @@ if (isset($_GET) and $_GET['update'] != '') {
         }
     }
 }
-
 // Update logic
 if (isset($_POST['pname']) and $_POST['pname'] != "") {
     $id = $_POST['id'];
@@ -158,13 +156,13 @@ if (isset($_POST['fname']) and $_POST['fname'] != "" and isset($_POST['project']
     $id = $_POST['id'];
     $name = $_POST['fname'];
     $project = $_POST['project'];
+    mysqli_query($conn, "SET GLOBAL FOREIGN_KEY_CHECKS=0;");
     $sql = "UPDATE employees SET name= '$name' WHERE id = $id";
     $result = mysqli_query($conn, $sql);
     $sql = "UPDATE employees SET project_id = $project WHERE id = $id";
     $result = mysqli_query($conn, $sql);
     header("Location: ?path=employees");
 }
-
 mysqli_close($conn);
 print('</body>');
 ?>
