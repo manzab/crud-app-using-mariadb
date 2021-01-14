@@ -13,7 +13,6 @@ if (!$conn) {
 }
 
 mysqli_query($conn, "SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));");
-
 //Delete logic
 if (isset($_GET['action']) and $_GET['action'] == 'deleteProject') {
     $sql = 'DELETE FROM projects WHERE id = ?';
@@ -35,8 +34,6 @@ if (isset($_GET['action']) and $_GET['action'] == 'deleteEmployee') {
     header("Location: ?path=employees");
     die();
 };
-
-
 print("<head><link rel='stylesheet' href='styles.css'></head>");
 print("<body>");
 print("<br>");
@@ -44,7 +41,6 @@ print("<br>");
 print("<header><div class='links'><a href='$path=projects'>PROJECTS</a><a href='$path=employees'>EMPLOYEES</a></div><div class='logo'>LOGO</div></header>");
 print("</header");
 print("<br>");
-
 //Displaying all projects
 if (isset($_GET['path']) and $_GET['path'] == 'projects') {
     $sql = "SELECT projects.id, GROUP_CONCAT(employees.name SEPARATOR ', ') as Employees, projects.name as Projects FROM projects LEFT JOIN employees ON employees.project_id = projects.id WHERE projects.name != '' GROUP BY projects.name";
@@ -68,7 +64,6 @@ if (isset($_GET['path']) and $_GET['path'] == 'projects') {
         print('</form>');
     }
 };
-
 // Adding new project logic
 if (isset($_POST['new_project']) and $_POST['new_project'] != "") {
     $name = $_POST['new_project'];
@@ -76,7 +71,6 @@ if (isset($_POST['new_project']) and $_POST['new_project'] != "") {
     $result = mysqli_query($conn, $sql);
     header("Location: ?path=projects");
 }
-
 // Displaying all employees
 if (isset($_GET['path']) and $_GET['path'] == 'employees') {
     $sql = "SELECT employees.id , employees.name as Employees, projects.name as Projects FROM employees LEFT JOIN projects ON employees.project_id = projects.id";
@@ -88,17 +82,18 @@ if (isset($_GET['path']) and $_GET['path'] == 'employees') {
             print('<tr>' . '<td>' . $num++ . '</td>' . '<td>' . $row['Employees'] . '</td>' . '<td>' . $row['Projects'] . '</td>' . '<td>' . '<a href="?action=deleteEmployee&id=' . $row['id'] . '"><button>DELETE</button></a>' . '<a href="?path=employees&update=' . $row['id'] . '"><button>UPDATE</button></a>' . '</td>' . '</tr>');
         }
         print('</tbody></table>');
+    } else {
+        print("<br>");
+        print("<br>");
+        print('<div class="empty">0 results</div>');
+    }
         if (!isset($_GET['update'])) {
             print('<form action="" name="create" method="POST">');
             print('<input type="text" name="new_employee">');
             print('<button id="edit" type="submit">ADD+</button>');
             print('</form>');
-        }} else {
-            print("<br>");
-            print("<br>");
-            print('<div class="empty">0 results</div>');
         }
-}
+};
 // Adding new employee
 if (isset($_POST['new_employee']) and $_POST['new_employee'] != "") {
     $name = $_POST['new_employee'];
@@ -164,10 +159,12 @@ if (isset($_POST['fname']) and $_POST['fname'] != "" and isset($_POST['project']
     $name = $_POST['fname'];
     $project = $_POST['project'];
     $sql = "UPDATE employees SET name= '$name' WHERE id = $id";
-    $result = mysqli_query($conn, $sql);
+    print_r($sql);
+    // $result = mysqli_query($conn, $sql);
     $sql = "UPDATE employees SET project_id = $project WHERE id = $id";
-    $result = mysqli_query($conn, $sql);
-    header("Location: ?path=employees");
+    print_r($sql);
+    // $result = mysqli_query($conn, $sql);
+    // header("Location: ?path=employees");
 }
 
 mysqli_close($conn);
