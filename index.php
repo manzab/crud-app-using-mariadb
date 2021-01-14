@@ -41,7 +41,7 @@ print("<head><link rel='stylesheet' href='styles.css'></head>");
 print("<body>");
 print("<br>");
 print("<br>");
-print("<header><div class='links'><a href='$path=projects'>PROJECTS</a><a href='$path=employees'>EMPLOYEES</a></div><div class='logo'><img src='https://cdn1.iconfinder.com_project/icons/youtuber/256/thumbs-up-like-gesture-512.png'></div></header>");
+print("<header><div class='links'><a href='$path=projects'>PROJECTS</a><a href='$path=employees'>EMPLOYEES</a></div><div class='logo'>LOGO</div></header>");
 print("</header");
 print("<br>");
 
@@ -56,21 +56,23 @@ if (isset($_GET['path']) and $_GET['path'] == 'projects') {
             print('<tr>' . '<td>' . $num++ . '</td>' . '<td>' . $row['Projects'] . '</td>' . '<td>' . $row['Employees'] . '</td>' . '<td>' . '<a href="?action=deleteProject&id=' . $row['id'] . '"><button>DELETE</button></a>' . '<a href="?path=projects&update=' . $row['id'] . '"><button>UPDATE</button></a>' . '</td>' . '</tr>');
         }
         print('</tbody></table>');
-        if (!isset($_GET['update'])) {
-            print('<form action="" name="create" method="POST">');
-            print('<input type="text" name="new_project">');
-            print('<button id="edit" type="submit">ADD+</button>');
-            print('</form>');
-        }
     } else {
-        echo '0 results';
+        print("<br>");
+        print("<br>");
+        print('<div class="empty">0 results</div>');
+    }
+    if (!isset($_GET['update'])) {
+        print('<form action="" name="create" method="POST">');
+        print('<input type="text" name="new_project">');
+        print('<button id="edit" type="submit">ADD+</button>');
+        print('</form>');
     }
 };
 
 // Adding new project logic
 if (isset($_POST['new_project']) and $_POST['new_project'] != "") {
     $name = $_POST['new_project'];
-    $sql = "INSERT INTO projects (name) VALUES ('$name1')";
+    $sql = "INSERT INTO projects (name) VALUES ('$name')";
     $result = mysqli_query($conn, $sql);
     header("Location: ?path=projects");
 }
@@ -91,10 +93,11 @@ if (isset($_GET['path']) and $_GET['path'] == 'employees') {
             print('<input type="text" name="new_employee">');
             print('<button id="edit" type="submit">ADD+</button>');
             print('</form>');
+        }} else {
+            print("<br>");
+            print("<br>");
+            print('<div class="empty">0 results</div>');
         }
-    } else {
-        echo "0 results";
-    }
 }
 // Adding new employee
 if (isset($_POST['new_employee']) and $_POST['new_employee'] != "") {
@@ -136,7 +139,7 @@ if (isset($_GET) and $_GET['update'] != '') {
                 $result = mysqli_query($conn, $sql);
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
-                        print('<option value="' . $row['id'] . '" >' . $row['name'] . '</option>');
+                        if ($row['name'] != "") print('<option value="' . $row['id'] . '" >' . $row['name'] . '</option>');
                     }
                 }
                 print('</select>');

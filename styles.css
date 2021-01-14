@@ -5,6 +5,7 @@ td,th {
 table {
     width: 90vw;
     margin: auto;
+    margin-top: 6vh;
     background-color: #f4f1de;
     border-collapse: collapse;
 }
@@ -86,4 +87,9 @@ select {
 
 select:focus {
     outline: 0
+}
+
+.empty {
+    margin-left: 5vw;
+    font-size: 1.25em;
 }
