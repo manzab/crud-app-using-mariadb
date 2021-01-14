@@ -159,13 +159,12 @@ if (isset($_POST['fname']) and $_POST['fname'] != "" and isset($_POST['project']
     $name = $_POST['fname'];
     $project = $_POST['project'];
     $sql = "UPDATE employees SET name= '$name' WHERE id = $id";
-    print_r($sql);
-    // $result = mysqli_query($conn, $sql);
+    $result = mysqli_query($conn, $sql);
     $sql = "UPDATE employees SET project_id = $project WHERE id = $id";
-    print_r($sql);
-    // $result = mysqli_query($conn, $sql);
-    // header("Location: ?path=employees");
+    $result = mysqli_query($conn, $sql);
+    header("Location: ?path=employees");
 }
 
 mysqli_close($conn);
 print('</body>');
+?>
