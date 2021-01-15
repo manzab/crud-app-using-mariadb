@@ -43,7 +43,7 @@ print("</header");
 print("<br>");
 //Displaying all projects
 if (isset($_GET['path']) and $_GET['path'] == 'projects') {
-    $sql = "SELECT projects.id, GROUP_CONCAT(employees.name SEPARATOR ', ') as Employees, projects.name as Projects FROM projects LEFT JOIN employees ON employees.project_id = projects.id WHERE projects.name != '' GROUP BY projects.name";
+    $sql = "SELECT projects.id, GROUP_CONCAT(employees.name SEPARATOR ', ') as Employees, projects.name as Projects FROM projects LEFT JOIN employees ON employees.project_id = projects.id WHERE projects.name != '' GROUP BY projects.name ORDER BY projects.id";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         print("<table>");
